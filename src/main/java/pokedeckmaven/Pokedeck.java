@@ -1,8 +1,14 @@
 package pokedeckmaven;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -76,7 +82,7 @@ public class Pokedeck {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void readCollectCardInFile() {
 		try {
 			FileInputStream file = new FileInputStream(p.getName()+".txt");
@@ -89,7 +95,7 @@ public class Pokedeck {
 		}
 	}
 	
-	public static void addCard() {		
+	public static void addCard(String nameCard) {		
 		numCard = 1 + random.nextInt(1000 - 0);
 		collectCard.add(new Card(nameCard, numCard));
 		for (int i = 0; i < collectCard.size(); i++) {
@@ -97,7 +103,7 @@ public class Pokedeck {
 		}
 	}
 	
-	public static void removeCard() {
+	public static void removeCard(int numCard) {
 		
 		for (int i = 0; i < collectCard.size(); i++) {
 			if (collectCard.get(i).toString().contains(Integer.toString(numCard))) {
@@ -106,7 +112,7 @@ public class Pokedeck {
 		}
 	}
 	
-	public static void modifyCard() {
+	public static void modifyCard(int numCard, String nameCard) {
 		for (int i = 0; i < collectCard.size(); i++) {
 			if (collectCard.get(i).toString().contains(Integer.toString(numCard))) {
 				cardUpdate = collectCard.set(i, new Card(nameCard, numCard));
@@ -114,11 +120,12 @@ public class Pokedeck {
 		}
 	}
 	
-	public static boolean searchCard() {
+	public static boolean searchCard(int numCardSearch, String nameCardSearch) {
 		if (collectCard.toString().contains(new Card(nameCardSearch, numCardSearch).toString())) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
 }

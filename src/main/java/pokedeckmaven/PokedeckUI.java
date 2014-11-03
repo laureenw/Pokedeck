@@ -36,68 +36,90 @@ public class PokedeckUI {
 		scanner.nextLine();
 		return UserChoice.values()[user_choice-1];
 	}
+	
+	public void addCardUI() {
+		do {
+			System.out.println("Card name :");
+			nameCard = scanner.next();
+			scanner.nextLine();
+		} while (pokedeck.getCollectCard().toString().contains(nameCard));
+		pokedeck.addCard(nameCard);
+		System.out.println(pokedeck.getMyCard());
+		pokedeck.writeCollectCardInFile();				
+	}
 
+	public void removeCardUI() {
+		System.out.println("Enter card number you want to delete : ");
+		numCard = scanner.nextInt();
+		pokedeck.removeCard(numCard);
+		System.out.println(pokedeck.getCardDelete() + " has been removed");
+		pokedeck.writeCollectCardInFile();	
+	}
+	
+	public void modifyCardUI() {
+		System.out.println("Enter card number you want to update : ");
+		numCard = scanner.nextInt();
+		System.out.println("New card name :");
+		nameCard = scanner.next();
+		scanner.nextLine();
+		pokedeck.modifyCard(numCard, nameCard);
+		System.out.println(pokedeck.getCardUpdate() + " has been updated");
+		pokedeck.writeCollectCardInFile();
+	}
+	
+	public void seeCollectionUI() {
+		pokedeck.readCollectCardInFile();
+		System.out.println("Collection : "+pokedeck.getCollectCard());
+	}
+	
+	public void searchCardUI() {
+		System.out.println("Enter card number you want to search :");
+		numCardSearch = scanner.nextInt();
+		System.out.println("Enter card name you want to search : ");
+		nameCardSearch = scanner.next();
+		scanner.nextLine();
+		if (pokedeck.searchCard(numCardSearch, nameCardSearch) == true) {
+			System.out.println("Your card : "+new Card(nameCardSearch, numCardSearch).toString());
+		} else {
+			System.out.println("Your collection does not contain card : "+new Card(nameCardSearch, numCardSearch).toString());
+		}
+	}
+	
+	public void saveCollectionUI() {
+		System.out.println("Backup file : "+p.getName()+".json");
+		pokedeck.writeCollectCardInFile();
+		System.exit(0);
+	}
+	
+	public void uploadCollectionUI() {
+		System.out.println("Loading file : "+p.getName()+".json");
+		pokedeck.readCollectCardInFile();
+		user_menu_choice();
+	}
+	
 	private boolean pick_choice(UserChoice option) {
 		boolean quit = false;
 		switch (option) {
 		case AddCard:
-			do {
-				System.out.println("Card name :");
-				nameCard = scanner.next();
-				scanner.nextLine();
-				pokedeck.setNameCard(nameCard);
-			} while (pokedeck.getCollectCard().toString().contains(nameCard));
-			pokedeck.addCard();
-			System.out.println(pokedeck.getMyCard());
-			pokedeck.writeCollectCardInFile();					
+			addCardUI();
 			break;
 		case RemoveCard:
-			System.out.println("Enter card number you want to delete : ");
-			numCard = scanner.nextInt();
-			pokedeck.setNumCard(numCard);
-			pokedeck.removeCard();
-			System.out.println(pokedeck.getCardDelete() + " has been removed");
-			pokedeck.writeCollectCardInFile();					
+			removeCardUI();			
 			break;
 		case ModifyCard:
-			System.out.println("Enter card number you want to update : ");
-			numCard = scanner.nextInt();
-			pokedeck.setNumCard(numCard);
-			System.out.println("New card name :");
-			nameCard = scanner.next();
-			scanner.nextLine();
-			pokedeck.setNameCard(nameCard);
-			pokedeck.modifyCard();
-			System.out.println(pokedeck.getCardUpdate() + " has been updated");
-			pokedeck.writeCollectCardInFile();
+			modifyCardUI();
 			break;
 		case SeeCollection:
-			pokedeck.readCollectCardInFile();
-			System.out.println("Collection : "+pokedeck.getCollectCard());
+			seeCollectionUI();
 			break;
 		case SearchCard:
-			System.out.println("Enter card number you want to search :");
-			numCardSearch = scanner.nextInt();
-			pokedeck.setNumCardSearch(numCardSearch);
-			System.out.println("Enter card name you want to search : ");
-			nameCardSearch = scanner.next();
-			scanner.nextLine();
-			pokedeck.setNameCardSearch(nameCardSearch);
-			if (pokedeck.searchCard() == true) {
-				System.out.println("Your card : "+new Card(nameCardSearch, numCardSearch).toString());
-			} else {
-				System.out.println("Your collection does not contain card : "+new Card(nameCardSearch, numCardSearch).toString());
-			}
+			searchCardUI();
 			break;
 		case SaveCollection:
-			System.out.println("Backup file : "+p.getName()+".txt");
-			pokedeck.writeCollectCardInFile();
-			System.exit(0);
+			saveCollectionUI();
 			break;
 		case UploadCollection:
-			System.out.println("Loading file : "+p.getName()+".txt");
-			pokedeck.readCollectCardInFile();
-			user_menu_choice();
+			uploadCollectionUI();
 			break;
 		case Stop:
 			quit = true;
