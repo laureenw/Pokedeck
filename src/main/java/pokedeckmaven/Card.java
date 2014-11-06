@@ -6,10 +6,12 @@ public class Card implements Serializable{
 
 	private int num;
 	private String name;
+	private String type;
 	
-	public Card(String name, int num) {
+	public Card(String name, int num, String type) {
 		this.num = num;
 		this.name = name;
+		this.type = type;
 	}
 	
 	public void Show() {
@@ -17,7 +19,7 @@ public class Card implements Serializable{
 	}
 	
 	public String toString(){
-    	String S = this.num+" "+this.name;
+    	String S = this.num+" "+this.name+" "+this.type;
     	return S;
     }
 }

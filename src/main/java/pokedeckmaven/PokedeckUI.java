@@ -10,6 +10,8 @@ public class PokedeckUI {
 	String nameCard = "";
 	int numCardSearch;
 	String nameCardSearch;
+	String pokemonTypeSearch;
+	PokemonType choice_pokemon_type;
 	
 	public void start() {
 		boolean stop = false;
@@ -37,13 +39,61 @@ public class PokedeckUI {
 		return UserChoice.values()[user_choice-1];
 	}
 	
+	private PokemonType pokemon_type() {
+		System.out.println("[1] Grass\n"
+							+ "[2] Fire\n"
+							+ "[3] Water\n"
+							+ "[4] Lightning\n"
+							+ "[5] Psychic\n"
+							+ "[6] Fighting\n"
+							+ "[7] Darkness\n"
+							+ "[8] Metal\n"
+							+ "[9] Fairy\n"
+							+ "[10] Dragon\n"
+							+ "[11] Colorless");
+		int pokemon_type_choice = scanner.nextInt();
+		scanner.nextLine();
+		return PokemonType.values()[pokemon_type_choice-1];
+	}
+	
+	public void pick_choice_type(PokemonType option_type) {
+		switch (option_type) {
+		case grass:
+			break;
+		case fire:
+			break;
+		case water:
+			break;
+		case lightning:
+			break;
+		case psychic:
+			break;
+		case fighting:
+			break;
+		case darkness:
+			break;
+		case metal:
+			break;
+		case fairy:
+			break;
+		case dragon:
+			break;
+		case colorless:
+			break;
+		default:
+		}
+	}
+	
 	public void addCardUI() {
 		do {
 			System.out.println("Card name :");
 			nameCard = scanner.next();
 			scanner.nextLine();
 		} while (pokedeck.getCollectCard().toString().contains(nameCard));
-		pokedeck.addCard(nameCard);
+		System.out.println("Pokemon type :");
+		choice_pokemon_type = pokemon_type();
+		pick_choice_type(choice_pokemon_type);
+		pokedeck.addCard(nameCard, choice_pokemon_type);
 		System.out.println(pokedeck.getMyCard());
 		pokedeck.writeCollectCardInFile();				
 	}
@@ -62,7 +112,10 @@ public class PokedeckUI {
 		System.out.println("New card name :");
 		nameCard = scanner.next();
 		scanner.nextLine();
-		pokedeck.modifyCard(numCard, nameCard);
+		System.out.println("New pokemon type :");
+		choice_pokemon_type = pokemon_type();
+		pick_choice_type(choice_pokemon_type);
+		pokedeck.modifyCard(numCard, nameCard, choice_pokemon_type);
 		System.out.println(pokedeck.getCardUpdate() + " has been updated");
 		pokedeck.writeCollectCardInFile();
 	}
@@ -78,10 +131,13 @@ public class PokedeckUI {
 		System.out.println("Enter card name you want to search : ");
 		nameCardSearch = scanner.next();
 		scanner.nextLine();
-		if (pokedeck.searchCard(numCardSearch, nameCardSearch) == true) {
-			System.out.println("Your card : "+new Card(nameCardSearch, numCardSearch).toString());
+		System.out.println("Enter pokemon type you want to search : ");
+		pokemonTypeSearch = scanner.next();
+		scanner.nextLine();
+		if (pokedeck.searchCard(numCardSearch, nameCardSearch, pokemonTypeSearch) == true) {
+			System.out.println("Your card : "+new Card(nameCardSearch, numCardSearch, pokemonTypeSearch).toString());
 		} else {
-			System.out.println("Your collection does not contain card : "+new Card(nameCardSearch, numCardSearch).toString());
+			System.out.println("Your collection does not contain card : "+new Card(nameCardSearch, numCardSearch, pokemonTypeSearch).toString());
 		}
 	}
 	

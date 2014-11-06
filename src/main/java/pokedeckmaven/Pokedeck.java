@@ -26,6 +26,7 @@ public class Pokedeck {
 	private static Object cardUpdate;
 	private static int numCardSearch;
 	private static String nameCardSearch;
+	private static String pokemonTypeSearch;
 
 	public Pokedeck() {
 		// TODO Auto-generated constructor stub
@@ -39,18 +40,6 @@ public class Pokedeck {
 		return collectCard;
 	}
 	
-	public static void setCollectCard(ArrayList<Card> collectCard) {
-		Pokedeck.collectCard = collectCard;
-	}
-	
-	public static void setNumCard(int numCard) {
-		Pokedeck.numCard = numCard;
-	}
-	
-	public static void setNameCard(String nameCard) {
-		Pokedeck.nameCard = nameCard;
-	}
-	
 	public static Card getMyCard() {
 		return myCard;
 	}
@@ -61,14 +50,6 @@ public class Pokedeck {
 	
 	public static Object getCardUpdate() {
 		return cardUpdate;
-	}
-	
-	public static void setNumCardSearch(int numCardSearch) {
-		Pokedeck.numCardSearch = numCardSearch;
-	}
-	
-	public static void setNameCardSearch(String nameCardSearch) {
-		Pokedeck.nameCardSearch = nameCardSearch;
 	}
 
 	public static void writeCollectCardInFile() {
@@ -95,9 +76,9 @@ public class Pokedeck {
 		}
 	}
 	
-	public static void addCard(String nameCard) {		
+	public static void addCard(String nameCard, PokemonType choice_pokemon_type) {		
 		numCard = 1 + random.nextInt(1000 - 0);
-		collectCard.add(new Card(nameCard, numCard));
+		collectCard.add(new Card(nameCard, numCard, choice_pokemon_type.toString()));
 		for (int i = 0; i < collectCard.size(); i++) {
 			myCard = collectCard.get(i);
 		}
@@ -112,20 +93,19 @@ public class Pokedeck {
 		}
 	}
 	
-	public static void modifyCard(int numCard, String nameCard) {
+	public static void modifyCard(int numCard, String nameCard, PokemonType choice_pokemon_type) {
 		for (int i = 0; i < collectCard.size(); i++) {
 			if (collectCard.get(i).toString().contains(Integer.toString(numCard))) {
-				cardUpdate = collectCard.set(i, new Card(nameCard, numCard));
+				cardUpdate = collectCard.set(i, new Card(nameCard, numCard, choice_pokemon_type.toString()));
 			}
 		}
 	}
 	
-	public static boolean searchCard(int numCardSearch, String nameCardSearch) {
-		if (collectCard.toString().contains(new Card(nameCardSearch, numCardSearch).toString())) {
+	public static boolean searchCard(int numCardSearch, String nameCardSearch, String pokemonTypeSearch) {
+		if (collectCard.toString().contains(new Card(nameCardSearch, numCardSearch, pokemonTypeSearch).toString())) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
 }
