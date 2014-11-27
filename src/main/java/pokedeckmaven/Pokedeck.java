@@ -29,7 +29,7 @@ public class Pokedeck {
 	private static String pokemonTypeSearch;
 
 	public Pokedeck() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public static void setP(Player p) {
