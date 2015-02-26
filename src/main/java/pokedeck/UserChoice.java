@@ -1,0 +1,12 @@
+package pokedeck;
+
+public enum UserChoice {
+	ADDCARD,
+	REMOVECARD,
+	MODIFYCARD,
+	SEECOLLECTION,
+	SEARCHCARD,
+	SAVECOLLECTION,
+	UPLOADCOLLECTION,
+	STOP;
+}

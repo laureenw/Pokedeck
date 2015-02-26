@@ -1,4 +1,4 @@
-package pokedeckmaven;
+package pokedeck;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ public class Card implements Serializable{
 		this.type = type;
 	}
 	
-	public void Show() {
+	public void show() {
 		System.out.print("Nom de la carte : "+this.name);
 	}
 	

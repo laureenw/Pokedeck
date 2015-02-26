@@ -1,4 +1,4 @@
-package pokedeckmaven;
+package pokedeck;
 
 public class Player {
 	
